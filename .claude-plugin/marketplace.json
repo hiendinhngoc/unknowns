@@ -1,0 +1,11 @@
+{
+  "name": "unknowns-local",
+  "owner": { "name": "Hien Dinh" },
+  "plugins": [
+    {
+      "name": "unknowns",
+      "source": "./",
+      "description": "Know-your-unknowns lifecycle skills"
+    }
+  ]
+}

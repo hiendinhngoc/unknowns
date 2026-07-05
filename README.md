@@ -1,9 +1,13 @@
 # unknowns
 
-Agent skills implementing the novel techniques from
-[Know Your Unknowns](https://thariqs.github.io/html-effectiveness/unknowns/):
-systematically discover and close knowledge gaps before, during, and after
-implementation.
+Agent skills for systematically discovering and closing knowledge gaps before,
+during, and after implementation.
+
+The techniques come from
+[Know Your Unknowns](https://thariqs.github.io/html-effectiveness/unknowns/)
+by Thariq Shihipar — all credit for the ideas goes to him. This repo turns
+them into invocable [Agent Skills](https://www.agensi.io/learn/agent-skills-open-standard)
+(SKILL.md format) for Claude Code, Codex CLI, OpenCode, and other agents.
 
 ## Skills
 
@@ -21,11 +25,17 @@ implementation.
 ### Claude Code (as a plugin)
 
 ```
-/plugin marketplace add /Users/hien/Developer/unknowns
+/plugin marketplace add hiendinhngoc/unknowns
 /plugin install unknowns@unknowns-local
 ```
 
 Restart Claude Code. Skills appear as `/unknowns:<name>` in every project.
+
+For local development, add your clone by path instead:
+
+```
+/plugin marketplace add /path/to/unknowns
+```
 
 ### Codex CLI
 

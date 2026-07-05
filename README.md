@@ -26,7 +26,7 @@ them into invocable [Agent Skills](https://www.agensi.io/learn/agent-skills-open
 
 ```
 /plugin marketplace add hiendinhngoc/unknowns
-/plugin install unknowns@unknowns-local
+/plugin install unknowns@unknowns
 ```
 
 Restart Claude Code. Skills appear as `/unknowns:<name>` in every project.

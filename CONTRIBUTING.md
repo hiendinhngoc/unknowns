@@ -51,7 +51,7 @@ Conventions:
 
 ```
 /plugin marketplace add /path/to/your/clone
-/plugin install unknowns@unknowns-local
+/plugin install unknowns@unknowns
 ```
 
 Restart Claude Code, invoke your skill on a real project, and check it follows

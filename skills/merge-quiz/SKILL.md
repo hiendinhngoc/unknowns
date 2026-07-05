@@ -18,7 +18,8 @@ tests the user, not Claude.
 2. **Pick the 3–5 riskiest spots.** Prioritize: behavior changes on dangerous
    paths (auth, money, deletion, migrations), deviations from the plan, error
    handling changes, anything irreversible.
-3. **Quiz one question at a time** using AskUserQuestion. Each question:
+3. **Quiz one question at a time** using AskUserQuestion (or plain-text
+   multiple choice if this agent has no such tool). Each question:
    - Cites the exact file:line it's about
    - Asks about consequences, not trivia: "what happens if X is null here?",
      "why did we bypass Y?", "what breaks if this runs twice?"

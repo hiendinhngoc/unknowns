@@ -5,8 +5,9 @@ description: Lifecycle orchestrator for the unknowns plugin. Detects the current
 
 # Unknowns Orchestrator
 
-Pure router. Detect the phase, invoke the right skill via the Skill tool.
-No technique logic lives here.
+Pure router. Detect the phase, invoke the right skill via the Skill tool
+(or, if this agent has no skill-invocation tool, read that skill's SKILL.md
+and follow it directly). No technique logic lives here.
 
 ## Phase detection
 

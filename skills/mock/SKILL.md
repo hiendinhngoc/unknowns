@@ -21,6 +21,8 @@ session scratchpad directory. No production files created or modified.</HARD-RUL
      setTimeout + canned responses
    - Make the undecided part interactive; keep everything else minimal
 3. **Render it with the Artifact tool** so the user can click through it.
+   (No Artifact tool in this agent? Tell the user the file path to open in a
+   browser instead.)
 4. **Iterate.** Apply requested changes to the same file and redeploy to the
    same artifact URL.
 5. **Exit.** When the user is satisfied, ask: "Does this match what you wanted?"

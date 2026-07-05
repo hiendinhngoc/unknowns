@@ -133,3 +133,15 @@ elsewhere (the SKILL.md files say so inline):
 
 The plugin packaging (`.claude-plugin/`) is Claude Code-only; the `skills/`
 directory is the portable part.
+
+## Contributing
+
+New skills welcome — the bar is that they surface unknowns and don't duplicate
+what the ecosystem already covers. See [CONTRIBUTING.md](CONTRIBUTING.md) for
+skill structure conventions and local testing. Design docs live in
+[`docs/superpowers/`](docs/superpowers/).
+
+## License
+
+[MIT](LICENSE) © 2026 Hien Dinh. Techniques by
+[Thariq Shihipar](https://thariqs.github.io/html-effectiveness/unknowns/).

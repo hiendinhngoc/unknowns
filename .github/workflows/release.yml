@@ -2,25 +2,14 @@ name: release
 
 on:
   push:
-    tags: ['v*']
+    branches: [main]
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
-  release:
+  release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Check tag matches plugin.json version
-        run: |
-          tag="${GITHUB_REF_NAME#v}"
-          version=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
-          if [ "$tag" != "$version" ]; then
-            echo "Tag v$tag does not match plugin.json version $version"
-            exit 1
-          fi
-      - name: Create GitHub release
-        run: gh release create "$GITHUB_REF_NAME" --generate-notes
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - uses: googleapis/release-please-action@v4

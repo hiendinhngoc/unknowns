@@ -143,15 +143,13 @@ skill structure conventions and local testing. Design docs live in
 
 ## Releases
 
-Versions follow [semver](https://semver.org) and live in
-`.claude-plugin/plugin.json`. To cut a release: bump the version there, merge,
-then tag — CI creates the GitHub Release with generated notes:
+Automated by [release-please](https://github.com/googleapis/release-please)
+from conventional commits: `fix:` bumps patch, `feat:` bumps minor, `feat!:`
+bumps major. It keeps a release PR open on main; merging it tags the release,
+writes the changelog, and bumps the version in `.claude-plugin/plugin.json`.
 
-```bash
-git tag v0.2.0 && git push origin v0.2.0
-```
-
-The tag must match the manifest version or the release job fails.
+To force a specific version, add a `Release-As: x.y.z` footer to any commit
+on main.
 
 ## License
 

@@ -13,9 +13,11 @@ and follow it directly). No technique logic lives here.
 
 Check, in order:
 
-1. **Pre-merge:** `git status` clean or nearly clean AND the current branch has
-   commits ahead of the default branch (`git log <default-branch>..HEAD --oneline`
-   is non-empty) → invoke `unknowns:merge-quiz`.
+1. **Pre-merge:** `git status` clean or nearly clean AND there are commits to
+   review: on a feature branch, commits ahead of the default branch
+   (`git log <default-branch>..HEAD --oneline` non-empty); when HEAD *is* the
+   default branch, unpushed commits (`git log @{upstream}..HEAD --oneline`
+   non-empty) → invoke `unknowns:merge-quiz`.
 2. **Mid-implementation:** uncommitted changes exist, or the conversation shows
    an agreed plan being executed → if a deviation was just discussed, invoke
    `unknowns:log-deviation`; otherwise remind the user the deviation log exists
@@ -32,3 +34,7 @@ Check, in order:
 - If git state and conversation disagree, trust the conversation and confirm
   with the user.
 - Outside a git repo, skip detection and just ask which phase they're in.
+- Skill names here use the `unknowns:` namespace (Claude Code plugin install).
+  If the skills were installed flat (Codex, OpenCode: `cp -r skills/*`), they go
+  by their bare directory names — `blindspot`, `verify-ref`, `mock`,
+  `log-deviation`, `merge-quiz`.

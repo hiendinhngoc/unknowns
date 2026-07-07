@@ -18,11 +18,15 @@ jobs:
         run: |
           fail=0
           for f in skills/*/SKILL.md; do
-            if head -1 "$f" | grep -q '^---$' && grep -q '^name: ' "$f" && grep -q '^description: ' "$f"; then
-              echo "OK $f"
-            else
-              echo "FAIL $f"
-              fail=1
-            fi
+            dir=$(basename "$(dirname "$f")")
+            name=$(sed -n 's/^name: //p' "$f" | head -1)
+            desc=$(sed -n 's/^description: //p' "$f" | head -1)
+            err=""
+            head -1 "$f" | grep -q '^---$' || err="missing frontmatter delimiter"
+            [ -n "$desc" ] || err="missing description"
+            [ ${#desc} -le 1024 ] || err="description over 1024 chars (${#desc})"
+            echo "$name" | grep -Eq '^[a-z0-9-]+$' || err="name '$name' not kebab-case"
+            [ "$name" = "$dir" ] || err="name '$name' != directory '$dir'"
+            if [ -z "$err" ]; then echo "OK $f"; else echo "FAIL $f: $err"; fail=1; fi
           done
           exit $fail

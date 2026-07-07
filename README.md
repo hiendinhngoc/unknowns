@@ -143,6 +143,16 @@ non-interactive skills against a live agent (manual, costs tokens). Design docs
 live in
 [`docs/superpowers/`](docs/superpowers/).
 
+## Releases
+
+Automated by [release-please](https://github.com/googleapis/release-please)
+from conventional commits: `fix:` bumps patch, `feat:` bumps minor, `feat!:`
+bumps major. It keeps a release PR open on main; merging it tags the release,
+writes the changelog, and bumps the version in `.claude-plugin/plugin.json`.
+
+To force a specific version, add a `Release-As: x.y.z` footer to any commit
+on main.
+
 ## License
 
 [MIT](LICENSE) © 2026 Hien Dinh. Techniques by

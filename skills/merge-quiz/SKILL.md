@@ -11,10 +11,13 @@ tests the user, not Claude.
 ## Process
 
 1. **Gather the material.**
-   - Diff: `git diff <default-branch>...HEAD`. If there is no diff against the
-     default branch, say so and stop.
-   - Deviation log: read `docs/deviations/*.md` entries dated during this branch's
-     lifetime, if any exist.
+   - Diff, first base that yields one:
+     1. On a feature branch: `git diff <default-branch>...HEAD`
+     2. HEAD is the default branch: `git diff @{upstream}..HEAD` (unpushed commits)
+     3. Neither yields a diff: ask the user for a base ref; if they have none, stop.
+   - Deviation log: read every `docs/deviations/*.md` file whose date (from the
+     filename) is on or after the merge-base commit's date
+     (`git log -1 --format=%cs $(git merge-base <base> HEAD)`), if any exist.
 2. **Pick the 3–5 riskiest spots.** Prioritize: behavior changes on dangerous
    paths (auth, money, deletion, migrations), deviations from the plan, error
    handling changes, anything irreversible.

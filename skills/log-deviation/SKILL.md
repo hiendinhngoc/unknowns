@@ -12,7 +12,9 @@ these entries are the highest-value input to the next plan.
 
 - In a git repo: `docs/deviations/YYYY-MM-DD-<task-slug>.md` at the repo root
   (create `docs/deviations/` if needed). `<task-slug>` = short kebab-case name
-  of the current task, stable across the whole task so entries append to one file.
+  of the current task. Before creating a new file, glob
+  `docs/deviations/*-<task-slug>.md` — if a file for this task already exists
+  (even from an earlier day/session), append to it instead of creating another.
 - Outside a git repo: write to the session scratchpad instead and tell the user
   the path.
 

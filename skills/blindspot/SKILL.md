@@ -9,6 +9,10 @@ Find the unknowns in a system BEFORE touching it. Reconnaissance only.
 
 <HARD-RULE>Read-only. Do not edit, create, or delete any project file. No fixes, however tempting.</HARD-RULE>
 
+Tip for the user (mention once at the start): running this pass in plan mode or
+a read-only permission mode makes the rule enforced by the harness, not just
+promised by the model.
+
 ## Process
 
 1. **Identify the target.** Use the argument or infer the directory/system/feature

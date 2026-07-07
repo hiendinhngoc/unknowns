@@ -141,6 +141,18 @@ what the ecosystem already covers. See [CONTRIBUTING.md](CONTRIBUTING.md) for
 skill structure conventions and local testing. Design docs live in
 [`docs/superpowers/`](docs/superpowers/).
 
+## Releases
+
+Versions follow [semver](https://semver.org) and live in
+`.claude-plugin/plugin.json`. To cut a release: bump the version there, merge,
+then tag — CI creates the GitHub Release with generated notes:
+
+```bash
+git tag v0.2.0 && git push origin v0.2.0
+```
+
+The tag must match the manifest version or the release job fails.
+
 ## License
 
 [MIT](LICENSE) © 2026 Hien Dinh. Techniques by

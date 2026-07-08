@@ -1,0 +1,58 @@
+# CLAUDE.md
+
+This repo publishes the `unknowns` Claude Code plugin and portable Agent Skills.
+
+## Repo shape
+
+Skills live flat under `skills/<name>/SKILL.md`:
+
+- `blindspot` — read-only pre-implementation risk scan
+- `verify-ref` — comprehension gate before porting/reference-copying
+- `mock` — disposable prototype for unresolved UX/behavior
+- `log-deviation` — record plan-vs-code deviations during implementation
+- `merge-quiz` — pre-merge quiz on risky diff areas
+- `unknowns` — router/orchestrator; keep routing logic here, technique logic in the target skill
+
+Keep every skill referenced in the top-level `README.md` skills table. Plugin package metadata lives in `.claude-plugin/`; do not add per-skill entries there unless Claude's plugin format starts requiring them.
+
+## Skill conventions
+
+Each skill is one directory containing `SKILL.md` with:
+
+```markdown
+---
+name: <kebab-name>
+description: <trigger phrases + when to use it>
+version: 1.0.0
+author: Hien Dinh
+license: MIT
+---
+
+# Title
+```
+
+Rules:
+
+- `name` must match the directory.
+- `description` drives model invocation; include user phrases people will actually say.
+- Put hard constraints near the top with `<HARD-RULE>` or `<HARD-GATE>`.
+- End with an explicit output format.
+- If a skill mentions Claude-specific tools (`Artifact tool`, `AskUserQuestion`, `Skill tool`, `Glob/Grep/Read`), include the portable fallback in the same skill.
+- Keep skills portable: no repo-specific paths, no hidden Claude-only requirement unless a fallback is documented.
+
+## Adding or changing skills
+
+1. Update `skills/<name>/SKILL.md`.
+2. Update the top-level `README.md` skills table and examples if the user-facing behavior changes.
+3. If `unknowns` should route to the skill, update `skills/unknowns/SKILL.md`.
+4. Run:
+
+```bash
+python3 scripts/validate_skills.py
+```
+
+`tests/eval.sh` is a manual live-agent smoke test. Do not run it for routine docs/metadata edits unless the change affects real skill behavior.
+
+## Pull requests
+
+One focused skill change per PR. In the PR body, say what unknown the change surfaces and how it was checked.

@@ -1,6 +1,9 @@
 ---
 name: log-deviation
 description: Record a place where the code forced a deviation from the agreed plan. Use mid-implementation whenever reality contradicts the plan, or when the user says "log this deviation". The log feeds future planning and the merge quiz.
+version: 1.0.0
+author: Hien Dinh
+license: MIT
 ---
 
 # Deviation Log

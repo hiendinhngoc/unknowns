@@ -61,15 +61,10 @@ the agent's skills directory (see README).
 ## Validation
 
 CI checks that the JSON manifests parse and every SKILL.md has valid
-frontmatter. Run it locally:
+frontmatter, README coverage, and portable tool fallbacks. Run it locally:
 
 ```bash
-python3 -m json.tool .claude-plugin/plugin.json > /dev/null
-python3 -m json.tool .claude-plugin/marketplace.json > /dev/null
-for f in skills/*/SKILL.md; do
-  head -1 "$f" | grep -q '^---$' && grep -q '^name: ' "$f" && grep -q '^description: ' "$f" \
-    && echo "OK $f" || echo "FAIL $f"
-done
+python3 scripts/validate_skills.py
 ```
 
 ## Pull requests

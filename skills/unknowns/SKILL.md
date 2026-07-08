@@ -1,13 +1,16 @@
 ---
 name: unknowns
 description: Lifecycle orchestrator for the unknowns plugin. Detects the current phase of work (pre-implementation, mid-implementation, pre-merge) and routes to the right technique skill. Use when the user says "/unknowns", "know my unknowns", or is unsure which unknowns skill applies.
+version: 1.0.0
+author: Hien Dinh
+license: MIT
 ---
 
 # Unknowns Orchestrator
 
-Pure router. Detect the phase, invoke the right skill via the Skill tool
-(or, if this agent has no skill-invocation tool, read that skill's SKILL.md
-and follow it directly). No technique logic lives here.
+Pure router. Detect the phase, invoke the right skill via the Skill tool.
+If this agent has no skill-invocation tool, read that skill's SKILL.md and
+follow it directly. No technique logic lives here.
 
 ## Phase detection
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/hiendinhngoc/unknowns/compare/v0.2.0...v0.2.1) (2026-07-08)
+
+
+### Bug Fixes
+
+* harden skill instructions and validation ([30f6a82](https://github.com/hiendinhngoc/unknowns/commit/30f6a8272711277d218d4ead0eb3d20613062807))
+
+
 ## [0.2.0](https://github.com/hiendinhngoc/unknowns/compare/v0.1.0...v0.2.0) (2026-07-07)
 
 

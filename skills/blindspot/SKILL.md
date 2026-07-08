@@ -1,6 +1,9 @@
 ---
 name: blindspot
 description: Read-only reconnaissance pass over an unfamiliar codebase, system, or feature area to surface hidden risks before any code is written. Use when starting work in unfamiliar territory, before a risky change, or when the user says "blindspot pass", "what am I missing", or "scan for risks".
+version: 1.0.0
+author: Hien Dinh
+license: MIT
 ---
 
 # Blindspot Pass
@@ -17,7 +20,8 @@ promised by the model.
 
 1. **Identify the target.** Use the argument or infer the directory/system/feature
    from conversation. If no target is discernible, ask for one — don't guess.
-2. **Explore.** Use Glob/Grep/Read (and git log for churn hotspots) to understand
+2. **Explore.** Use the agent's file-search/read tools (Glob/Grep/Read,
+   `rg`/`find`/`cat`, or equivalent) and git log for churn hotspots to understand
    the target. Look specifically for:
    - Hidden coupling: modules that import each other's internals, shared mutable
      state, implicit ordering dependencies
@@ -28,7 +32,8 @@ promised by the model.
    - Missing tests around dangerous paths: money, auth, deletion, migrations,
      concurrency — anything irreversible with no test coverage
    - Churn hotspots: files with many recent fixes (`git log --oneline -- <path>`)
-3. **Report 5–7 findings, ranked by risk** (highest first).
+3. **Report up to 7 findings, ranked by risk** (highest first). If fewer
+   than 5 real risks are found, say so instead of padding.
 
 ## Output format (per finding)
 

@@ -1,6 +1,9 @@
 ---
 name: verify-ref
 description: Comprehension gate before porting, copying, or adapting an existing implementation. Proves understanding of the reference code before any new code is written. Use when the task is "port X", "copy how Y does it", "adapt Z", or reimplementing existing behavior.
+version: 1.0.0
+author: Hien Dinh
+license: MIT
 ---
 
 # Reference Verification
@@ -29,7 +32,8 @@ comprehension proof below.</HARD-GATE>
    name the 2-3 misreadings most likely to cause a subtly wrong port and say
    why your reading is correct (cite file:line evidence).
 5. **Gate.** Ask the user to confirm the proof or correct it. Only after
-   confirmation may implementation begin.
+   confirmation may implementation begin. If no interactive user is available,
+   stop after the proof and do not implement.
 
 ## Output format
 

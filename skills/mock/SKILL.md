@@ -1,6 +1,9 @@
 ---
 name: mock
 description: Build a throwaway interactive prototype to validate behavior and UX before writing production code. Use when requirements are vague, the user says "mock it up first", "prototype this", or before wiring a feature whose look/behavior is undecided.
+version: 1.0.0
+author: Hien Dinh
+license: MIT
 ---
 
 # Mock Before Wiring
@@ -21,8 +24,8 @@ session scratchpad directory. No production files created or modified.</HARD-RUL
      setTimeout + canned responses
    - Make the undecided part interactive; keep everything else minimal
 3. **Render it with the Artifact tool** so the user can click through it.
-   (No Artifact tool in this agent? Tell the user the file path to open in a
-   browser instead.)
+   If this agent has no Artifact tool, tell the user the file path to open in
+   a browser instead.
 4. **Iterate.** Apply requested changes to the same file and redeploy to the
    same artifact URL.
 5. **Exit.** When the user is satisfied, ask: "Does this match what you wanted?"

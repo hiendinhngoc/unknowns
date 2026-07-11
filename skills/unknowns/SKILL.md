@@ -14,17 +14,24 @@ follow it directly. No technique logic lives here.
 
 ## Phase detection
 
-Check, in order:
+Trust explicit conversation intent first: requests to review/merge, reports of a
+plan deviation, porting language, or prototype language route directly. Use git
+only when intent is not clear.
 
-1. **Pre-merge:** `git status` clean or nearly clean AND there are commits to
-   review: on a feature branch, commits ahead of the default branch
-   (`git log <default-branch>..HEAD --oneline` non-empty); when HEAD *is* the
-   default branch, unpushed commits (`git log @{upstream}..HEAD --oneline`
-   non-empty) → invoke `unknowns:merge-quiz`.
-2. **Mid-implementation:** uncommitted changes exist, or the conversation shows
+When git evidence is needed, resolve the comparison base in this order: the
+current branch's configured upstream; `refs/remotes/origin/HEAD`; an existing
+local `main`; then `master`. Verify every candidate before using it.
+
+Then check, in order:
+
+1. **Pre-merge:** the user expresses review/merge intent, or HEAD has commits
+   ahead of the resolved base and the worktree has no tracked modifications →
+   invoke `unknowns:merge-quiz`.
+2. **Mid-implementation:** tracked modifications exist, or the conversation shows
    an agreed plan being executed → if a deviation was just discussed, invoke
-   `unknowns:log-deviation`; otherwise remind the user the deviation log exists
-   and ask what they need.
+   `unknowns:log-deviation`; otherwise report that no concrete deviation is
+   available to log and present the three pre-implementation techniques without
+   invoking one speculatively.
 3. **Pre-implementation:** no changes yet for the task at hand → ask ONE
    question: what kind of unknown are they facing?
    - Unfamiliar system / risky area → invoke `unknowns:blindspot`
@@ -34,9 +41,9 @@ Check, in order:
 ## Rules
 
 - Route and invoke — never inline a technique's logic here.
-- If git state and conversation disagree, trust the conversation and confirm
-  with the user.
-- Outside a git repo, skip detection and just ask which phase they're in.
+- If git state and conversation disagree, trust explicit conversation intent.
+- Outside a git repo, route from conversation; ask one phase question only when
+  no intent or target can be inferred.
 - Skill names here use the `unknowns:` namespace (Claude Code plugin install).
   If the skills were installed flat (Codex, OpenCode: `cp -r skills/*`), they go
   by their bare directory names — `blindspot`, `verify-ref`, `mock`,

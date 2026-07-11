@@ -138,10 +138,10 @@ directory is the portable part.
 
 New skills welcome — the bar is that they surface unknowns and don't duplicate
 what the ecosystem already covers. See [CONTRIBUTING.md](CONTRIBUTING.md) for
-skill structure conventions and local testing. `tests/eval.sh` smoke-tests the
-non-interactive skills against a live agent (manual, costs tokens). Design docs
-live in
-[`docs/superpowers/`](docs/superpowers/).
+skill structure conventions and local testing. `tests/eval.sh` behavior-tests
+the non-interactive skills against a live agent (manual, costs tokens). Design
+docs live in [`docs/specs/`](docs/specs/), with historical implementation plans
+in [`docs/plans/`](docs/plans/).
 
 ## Releases
 

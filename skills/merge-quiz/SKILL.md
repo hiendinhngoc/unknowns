@@ -13,19 +13,24 @@ tests the user, not Claude.
 
 ## Process
 
-1. **Gather the material.**
-   - Diff, first base that yields one:
-     1. On a feature branch: `git diff <default-branch>...HEAD`
-     2. HEAD is the default branch: `git diff @{upstream}..HEAD` (unpushed commits)
-     3. Neither yields a diff: ask the user for a base ref; if they have none, stop.
-   - Deviation log: read every `docs/deviations/*.md` file whose date (from the
-     filename) is on or after the merge-base commit's date
-     (`git log -1 --format=%cs $(git merge-base <base> HEAD)`), if any exist.
-2. **Pick the 3–5 riskiest spots.** If the diff is too small for 3 real
+1. **Resolve the base deterministically.** Prefer, in order: the base explicitly
+   named by the user; the current branch's configured upstream; the remote
+   default branch from `refs/remotes/origin/HEAD`; then an existing local
+   `main` or `master`. Verify the candidate with `git rev-parse --verify` before
+   using it. If no candidate exists, ask for a base ref and stop.
+2. **Gather the material.**
+   - Diff: `git diff <base>...HEAD`. If it is empty, also check
+     `git diff <base>..HEAD`, tracked worktree changes, and relevant untracked
+     files reported by `git status --short`. State exactly which material was
+     selected. If all are empty, stop because there is nothing to quiz.
+   - Deviation log: prefer files for the current branch/task slug. If task
+     identity is unavailable, include only deviation files changed in the diff;
+     do not sweep unrelated logs by date.
+3. **Pick the 3–5 riskiest spots.** If the diff is too small for 3 real
    questions, ask fewer and say why. Prioritize: behavior changes on dangerous
    paths (auth, money, deletion, migrations), deviations from the plan, error
    handling changes, anything irreversible.
-3. **Quiz one question at a time** using AskUserQuestion (or plain-text
+4. **Quiz one question at a time** using AskUserQuestion (or plain-text
    multiple choice if this agent has no such tool). If no interactive user is
    available, output the quiz and stop without answering for them. Each question:
    - Cites the exact file:line it's about
@@ -35,9 +40,9 @@ tests the user, not Claude.
      misunderstandings)
    - Has one correct answer backed by the exact diff hunk or file:line; if no
      evidence exists in the diff, do not ask that question
-4. **On a wrong or unsure answer:** explain the correct answer immediately with
+5. **On a wrong or unsure answer:** explain the correct answer immediately with
    evidence from the diff, and flag that spot as review-carefully.
-5. **Produce the merge-readiness note** (paste-ready for the PR description):
+6. **Produce the merge-readiness note** (paste-ready for the PR description):
 
 ```markdown
 ## Merge readiness

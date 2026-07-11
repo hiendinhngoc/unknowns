@@ -17,7 +17,7 @@ Keep every skill referenced in the top-level `README.md` skills table. Plugin pa
 
 ## Skill conventions
 
-Each skill is one directory containing `SKILL.md` with:
+Each skill is one directory containing `SKILL.md` and `agents/openai.yaml` with:
 
 ```markdown
 ---
@@ -39,6 +39,8 @@ Rules:
 - End with an explicit output format.
 - If a skill mentions Claude-specific tools (`Artifact tool`, `AskUserQuestion`, `Skill tool`, `Glob/Grep/Read`), include the portable fallback in the same skill.
 - Keep skills portable: no repo-specific paths, no hidden Claude-only requirement unless a fallback is documented.
+- Keep `SKILL.md` under 500 lines and add resources only when progressive disclosure or deterministic tooling earns them.
+- Keep `agents/openai.yaml` display metadata and `$skill-name` default prompt aligned with `SKILL.md`.
 
 ## Adding or changing skills
 
@@ -49,6 +51,7 @@ Rules:
 
 ```bash
 python3 scripts/validate_skills.py
+python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
 `tests/eval.sh` is a manual live-agent smoke test. Do not run it for routine docs/metadata edits unless the change affects real skill behavior.

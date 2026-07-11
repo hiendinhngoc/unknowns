@@ -59,3 +59,17 @@ python3 -m unittest discover -s tests -p 'test_*.py'
 ## Pull requests
 
 One focused skill change per PR. In the PR body, say what unknown the change surfaces and how it was checked.
+
+## Commit messages
+
+Use Conventional Commit prefixes on the first line so `release-please` can
+detect releases, then keep Lore reasoning in the body and trailers.
+
+Examples:
+
+- `fix: make unknown-finding skills fail closed`
+- `feat: add a skill for architecture blindspot reviews`
+- `feat!: rename a public skill or change its invocation contract`
+
+Keep the Lore trailer structure after the subject line; the prefix is the only
+extra requirement.

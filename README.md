@@ -150,6 +150,16 @@ from conventional commits: `fix:` bumps patch, `feat:` bumps minor, `feat!:`
 bumps major. It keeps a release PR open on main; merging it tags the release,
 writes the changelog, and bumps the version in `.claude-plugin/plugin.json`.
 
+This repo also uses Lore trailers in commit bodies. The two conventions are
+meant to be combined, not chosen between. Put the conventional commit prefix on
+the first line, then keep the Lore body and trailers below it. Examples:
+
+```text
+fix: keep local agent state out of reviews
+feat: add a skill for pre-merge comprehension checks
+feat!: rename the public skill namespace
+```
+
 To force a specific version, add a `Release-As: x.y.z` footer to any commit
 on main.
 

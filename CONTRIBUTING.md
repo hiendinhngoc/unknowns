@@ -83,3 +83,32 @@ python3 -m unittest discover -s tests -p 'test_*.py'
 
 One skill (or one focused change) per PR. In the description, say what unknown
 the skill surfaces and give one real example of using it.
+
+## Commit format
+
+This repo uses two commit conventions together:
+
+- `release-please` reads the first line as a Conventional Commit subject.
+- Lore trailers capture the reasoning and verification in the commit body.
+
+Use a Conventional Commit prefix on the first line, then keep the Lore-style
+body and trailers underneath it. For example:
+
+```text
+fix: make unknown-finding skills fail closed
+
+Constraint: Validation must fail closed on malformed manifests
+Rejected: Allow empty manifests | hides broken packaging
+Confidence: high
+Scope-risk: narrow
+Directive: Keep validator checks deterministic across agents
+Tested: python3 scripts/validate_skills.py; python3 -m unittest discover -s tests -p 'test_*.py'
+Not-tested: live paid eval run
+```
+
+Release guidance:
+
+- Use `fix:` for bug fixes and validation hardening.
+- Use `feat:` for new skills or user-visible capability additions.
+- Use `feat!:` or add a `BREAKING CHANGE:` footer for breaking changes.
+- Add `Release-As: x.y.z` when you need to force a specific version.

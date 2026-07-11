@@ -1,7 +1,7 @@
 {
   "name": "unknowns",
   "description": "Skills for discovering and closing knowledge gaps across the dev lifecycle, from Thariq's 'Know Your Unknowns'",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": {
     "name": "Hien Dinh"
   }

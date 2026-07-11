@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1](https://github.com/hiendinhngoc/unknowns/compare/v0.3.0...v0.3.1) (2026-07-11)
+
+
+### Bug Fixes
+
+* trigger missed patch release ([51ad9c2](https://github.com/hiendinhngoc/unknowns/commit/51ad9c2fb58215ec60554ce6c0ef88f22c79a7f2))
+* trigger missed patch release ([8dc07c5](https://github.com/hiendinhngoc/unknowns/commit/8dc07c5868a6a20ceb896ad70e18906e8458db3f))
+
 ## [0.3.0](https://github.com/hiendinhngoc/unknowns/compare/v0.2.1...v0.3.0) (2026-07-08)
 
 

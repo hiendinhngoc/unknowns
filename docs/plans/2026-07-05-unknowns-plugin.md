@@ -1,6 +1,7 @@
 # Unknowns Plugin Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **Historical plan:** Execute task-by-task with the agent's native planning and
+> delegation tools. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build the `unknowns` Claude Code plugin — six markdown skills implementing the novel techniques from Thariq's "Know Your Unknowns" article.
 

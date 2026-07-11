@@ -1,6 +1,6 @@
 ---
 name: mock
-description: Build a throwaway interactive prototype to validate behavior and UX before writing production code. Use when requirements are vague, the user says "mock it up first", "prototype this", or before wiring a feature whose look/behavior is undecided.
+description: Build a throwaway interactive prototype to validate one unresolved interaction or behavior before writing production code. Use when the user explicitly asks to "mock it up first" or "prototype this", or when competing UI behaviors need a disposable hands-on comparison.
 version: 1.0.0
 author: Hien Dinh
 license: MIT
@@ -18,17 +18,21 @@ session scratchpad directory. No production files created or modified.</HARD-RUL
 1. **Pin down what's being validated.** One sentence: "This mock answers: <question>"
    (e.g. "should filtering be inline or a sidebar?"). If you can't write that
    sentence, ask the user what's undecided.
-2. **Build one self-contained HTML file** in the scratchpad directory:
+2. **Resolve a disposable location.** Prefer a harness-provided scratchpad. If
+   none exists, create a temporary directory outside the repository. Never use
+   an untracked directory inside the project as a substitute.
+3. **Build one self-contained HTML file** in that directory:
    - Inline all CSS/JS — no external requests
    - Fake all data with hardcoded fixtures; fake all backend calls with
      setTimeout + canned responses
    - Make the undecided part interactive; keep everything else minimal
-3. **Render it with the Artifact tool** so the user can click through it.
-   If this agent has no Artifact tool, tell the user the file path to open in
-   a browser instead.
-4. **Iterate.** Apply requested changes to the same file and redeploy to the
-   same artifact URL.
-5. **Exit.** When the user is satisfied, ask: "Does this match what you wanted?"
+4. **Preview with the best available capability.** Render it with the Artifact
+   tool when available. If this agent has no Artifact tool, provide the absolute
+   file path and, when supported, open it in a local browser. Do not claim it was
+   previewed when the environment cannot render or open it.
+5. **Iterate.** Apply requested changes to the same file. Refresh the existing
+   preview when supported; otherwise provide the unchanged file path.
+6. **Exit.** When the user is satisfied, ask: "Does this match what you wanted?"
    Then extract the confirmed decisions into a short spec in conversation:
 
 ```

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mock Before Wiring"
+  short_description: "Test an interaction with a throwaway mock"
+  default_prompt: "Use $mock to test this undecided interaction with a disposable prototype."

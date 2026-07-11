@@ -16,7 +16,13 @@ existing ones miss.
 
 ## Skill structure
 
-Each skill is one directory: `skills/<kebab-name>/SKILL.md`.
+Each skill is one directory with portable instructions and client metadata:
+
+```text
+skills/<kebab-name>/
+├── SKILL.md
+└── agents/openai.yaml
+```
 
 ```markdown
 ---
@@ -43,9 +49,14 @@ Conventions:
   a user would actually say.
 - Hard constraints (`read-only`, `don't touch the codebase`, gates) go in
   `<HARD-RULE>`/`<HARD-GATE>` tags before the process steps.
-- Every skill ends with an explicit output format. Vague skills produce vague
-  results.
+- Every technique skill defines a verifiable output contract. Routers may
+  instead define deterministic routing outcomes.
 - If input is ambiguous, the skill should ask — never guess.
+- Keep `SKILL.md` below 500 lines. Add directly linked `references/`, `scripts/`,
+  or `assets/` only when progressive disclosure or deterministic execution
+  justifies the extra file.
+- Keep `agents/openai.yaml` aligned with the skill. Its `default_prompt` must
+  name the skill as `$<kebab-name>`.
 
 ## Testing locally
 
@@ -65,6 +76,7 @@ frontmatter, README coverage, and portable tool fallbacks. Run it locally:
 
 ```bash
 python3 scripts/validate_skills.py
+python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
 ## Pull requests

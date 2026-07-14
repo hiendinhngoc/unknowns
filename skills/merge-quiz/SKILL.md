@@ -23,13 +23,17 @@ tests the user, not Claude.
      `git diff <base>..HEAD`, tracked worktree changes, and relevant untracked
      files reported by `git status --short`. State exactly which material was
      selected. If all are empty, stop because there is nothing to quiz.
+   - Exclude generated files (lockfiles, `*.pbxproj`, build outputs, vendored
+     code) from quiz material — churn there is noise, not comprehension risk.
    - Deviation log: prefer files for the current branch/task slug. If task
      identity is unavailable, include only deviation files changed in the diff;
      do not sweep unrelated logs by date.
 3. **Pick the 3–5 riskiest spots.** If the diff is too small for 3 real
-   questions, ask fewer and say why. Prioritize: behavior changes on dangerous
-   paths (auth, money, deletion, migrations), deviations from the plan, error
-   handling changes, anything irreversible.
+   questions, ask fewer and say why. First name what "dangerous" means in THIS
+   codebase's domain — auth/money/deletion/migrations in a backend; lifecycle,
+   state loss, and accessibility regressions in a UI app; loss/duplication/
+   ordering in a pipeline. Then prioritize: behavior changes on those paths,
+   deviations from the plan, error handling changes, anything irreversible.
 4. **Quiz one question at a time** using AskUserQuestion (or plain-text
    multiple choice if this agent has no such tool). If no interactive user is
    available, output the quiz and stop without answering for them. Each question:
@@ -40,8 +44,11 @@ tests the user, not Claude.
      misunderstandings)
    - Has one correct answer backed by the exact diff hunk or file:line; if no
      evidence exists in the diff, do not ask that question
-5. **On a wrong or unsure answer:** explain the correct answer immediately with
-   evidence from the diff, and flag that spot as review-carefully.
+5. **On a wrong or unsure answer:** explain the correct answer immediately,
+   quoting the exact diff hunk verbatim so the user can dispute it — the quiz
+   grades the user against the agent's reading of the diff, and that reading
+   can be wrong. If the user disputes with evidence, concede the question,
+   correct the score, and flag the spot as review-carefully either way.
 6. **Produce the merge-readiness note** (paste-ready for the PR description):
 
 ```markdown

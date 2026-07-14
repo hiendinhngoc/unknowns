@@ -24,10 +24,15 @@ local `main`; then `master`. Verify every candidate before using it.
 
 Then check, in order:
 
+Incidental dirt is not evidence: modifications limited to generated or
+IDE-managed files (`*.pbxproj`, lockfiles, `.DS_Store`, build outputs) do not
+indicate a task in flight — treat such a worktree as clean.
+
 1. **Pre-merge:** the user expresses review/merge intent, or HEAD has commits
    ahead of the resolved base and the worktree has no tracked modifications →
    invoke `unknowns:merge-quiz`.
-2. **Mid-implementation:** tracked modifications exist, or the conversation shows
+2. **Mid-implementation:** tracked modifications exist that plausibly belong to
+   the task at hand, or the conversation shows
    an agreed plan being executed → if a deviation was just discussed, invoke
    `unknowns:log-deviation`; otherwise report that no concrete deviation is
    available to log and present the three pre-implementation techniques without

@@ -20,9 +20,16 @@ promised by the model.
 
 1. **Identify the target.** Use the argument or infer the directory/system/feature
    from conversation. If no target is discernible, ask for one — don't guess.
-2. **Explore.** Use the agent's file-search/read tools (Glob/Grep/Read,
+2. **Name the domain, derive its dangerous paths.** Before scanning, state in
+   one line what kind of system the target is, and list the 2–3 failure classes
+   that domain actually bleeds from. The generic list below is a backend-shaped
+   floor, not a ceiling — a native UI app bleeds from accessibility gaps,
+   lifecycle/identity bugs, and state-restoration loss; a data pipeline from
+   loss, duplication, and ordering; a CLI from argument edge cases and exit
+   codes. Findings should come from the derived list first.
+3. **Explore.** Use the agent's file-search/read tools (Glob/Grep/Read,
    `rg`/`find`/`cat`, or equivalent) and git log for churn hotspots to understand
-   the target. Look specifically for:
+   the target. Look for the domain-derived risks from step 2, plus:
    - Hidden coupling: modules that import each other's internals, shared mutable
      state, implicit ordering dependencies
    - Unowned edge cases: error paths that swallow exceptions, TODO/FIXME/HACK
@@ -31,7 +38,9 @@ promised by the model.
      contradicting code, dead feature flags
    - Missing tests around dangerous paths: money, auth, deletion, migrations,
      concurrency — anything irreversible with no test coverage
-   - Churn hotspots: files with many recent fixes (`git log --oneline -- <path>`)
+   - Churn hotspots: files with many recent fixes
+     (`git log --oneline --no-merges -- <path>`, ignoring generated files:
+     lockfiles, `*.pbxproj`, build outputs — their churn is noise)
 3. **Report up to 7 findings, ranked by risk** (highest first). If fewer
    than 5 real risks are found, say so instead of padding.
 

@@ -30,14 +30,25 @@ comprehension proof below.</HARD-GATE>
    - **Invariants:** what must remain true before/after (ordering, uniqueness,
      idempotency, transactional boundaries)
    - **Hidden dependencies:** globals, config, environment, call-order
-     assumptions, side effects the signature doesn't show
+     assumptions, side effects the signature doesn't show. For UI code, also
+     name the framework semantics the reference leans on: lifecycle hooks that
+     fire once vs. per-render, view identity, and task/cleanup-on-teardown
+     behavior — these are where ports break silently.
+
+   Proportionality: for a small same-repo adaptation (roughly ≤30 lines, no
+   concurrency, no money/auth/persistence), a short proof of just **Data flow**
+   and **What would break if I got this wrong?** suffices — but step 2's full
+   read of the reference and its callers is never skipped; that read is where
+   latent bugs surface.
 4. **Self-challenge.** Add a section: "What would break if I got this wrong?" —
    name the 2-3 misreadings most likely to cause a subtly wrong port and say
    why your reading is correct (cite file:line evidence).
 5. **Gate.** Ask the user to confirm the proof or correct it. Only after
-   confirmation may implementation begin. If no interactive user is available,
-   stop after the proof and identify the exact uncertainty that needs review;
-   do not silently treat the proof as approval.
+   confirmation may implementation begin. A plan the user already approved that
+   names this exact port also counts as confirmation — say the proof is being
+   accepted under that approval and proceed. Otherwise, if no interactive user
+   is available, stop after the proof and identify the exact uncertainty that
+   needs review; do not silently treat the proof as approval.
 
 ## Output format
 

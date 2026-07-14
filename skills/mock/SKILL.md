@@ -21,18 +21,26 @@ session scratchpad directory. No production files created or modified.</HARD-RUL
 2. **Resolve a disposable location.** Prefer a harness-provided scratchpad. If
    none exists, create a temporary directory outside the repository. Never use
    an untracked directory inside the project as a substitute.
-3. **Build one self-contained HTML file** in that directory:
+3. **Non-web target? Scope the mock's authority first.** When the product is
+   native, CLI, or embedded, say up front what an HTML mock can and cannot
+   answer. It CAN validate flows, layout, copy, and state transitions; it
+   CANNOT validate platform feel, native gestures, assistive-technology
+   behavior, or animation physics. If the undecided question is on the
+   cannot list, say so and validate in the platform's own cheap medium
+   instead (a throwaway SwiftUI `#Preview`, a `--dry-run` flag, a bench
+   sketch) — do not fake confidence with a web approximation.
+4. **Build one self-contained HTML file** in that directory:
    - Inline all CSS/JS — no external requests
    - Fake all data with hardcoded fixtures; fake all backend calls with
      setTimeout + canned responses
    - Make the undecided part interactive; keep everything else minimal
-4. **Preview with the best available capability.** Render it with the Artifact
+5. **Preview with the best available capability.** Render it with the Artifact
    tool when available. If this agent has no Artifact tool, provide the absolute
    file path and, when supported, open it in a local browser. Do not claim it was
    previewed when the environment cannot render or open it.
-5. **Iterate.** Apply requested changes to the same file. Refresh the existing
+6. **Iterate.** Apply requested changes to the same file. Refresh the existing
    preview when supported; otherwise provide the unchanged file path.
-6. **Exit.** When the user is satisfied, ask: "Does this match what you wanted?"
+7. **Exit.** When the user is satisfied, ask: "Does this match what you wanted?"
    Then extract the confirmed decisions into a short spec in conversation:
 
 ```

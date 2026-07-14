@@ -58,4 +58,43 @@ else
   [[ $case_failed -eq 0 ]] && echo "OK   log-deviation"
 fi
 
+# Router: modifications limited to generated/IDE-managed files must not read as
+# mid-implementation — the router should fall through to the pre-implementation
+# question (naming the three techniques, not log-deviation).
+printf '// fake Xcode project stub\n' > "$fixture/project.pbxproj"
+git -C "$fixture" add project.pbxproj
+git -C "$fixture" -c user.email=t@t -c user.name=t commit -qm "add generated stub"
+printf '// IDE touch\n' >> "$fixture/project.pbxproj"
+router_output="$fixture/router-dirt.out"
+if ! (cd "$fixture" && claude -p "/unknowns:unknowns" --max-turns 15) >"$router_output" 2>&1; then
+  echo "FAIL router-dirt (claude command failed)"; fail=1
+else
+  case_failed=0
+  for marker in blindspot verify-ref mock; do
+    grep -Fqi "$marker" "$router_output" || { echo "FAIL router-dirt (missing pre-implementation option '$marker')"; fail=1; case_failed=1; }
+  done
+  grep -Fqi "log-deviation" "$router_output" && { echo "FAIL router-dirt (routed to log-deviation on generated-file dirt)"; fail=1; case_failed=1; }
+  [[ $case_failed -eq 0 ]] && echo "OK   router-dirt"
+fi
+git -C "$fixture" checkout -q -- project.pbxproj
+
+# merge-quiz: on a branch whose diff mixes a real behavior change with
+# generated-file churn, the quiz must come from the real change. (If pbxproj
+# noise crowded out the material, pay.py wouldn't be cited.) Non-interactive,
+# so the skill outputs the quiz and stops.
+git -C "$fixture" checkout -qb feat/quiz
+printf 'def refund(amount):\n    return gateway.charge(-amount)  # no retry on refunds\n' >> "$fixture/pay.py"
+printf '// churn\n' >> "$fixture/project.pbxproj"
+git -C "$fixture" add -A
+git -C "$fixture" -c user.email=t@t -c user.name=t commit -qm "add refund"
+quiz_output="$fixture/merge-quiz.out"
+if ! (cd "$fixture" && claude -p "/unknowns:merge-quiz against main" --max-turns 15) >"$quiz_output" 2>&1; then
+  echo "FAIL merge-quiz (claude command failed)"; fail=1
+else
+  case_failed=0
+  grep -Fq "pay.py" "$quiz_output" || { echo "FAIL merge-quiz (quiz never cites pay.py, the real change)"; fail=1; case_failed=1; }
+  [[ $case_failed -eq 0 ]] && echo "OK   merge-quiz"
+fi
+git -C "$fixture" checkout -q main
+
 exit "$fail"
